@@ -1,0 +1,58 @@
+{
+    "name": "zemkogabor/xinfra-php",
+    "description": "PHP client for sending logs and errors to xInfra.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "xinfra",
+        "logging",
+        "error-tracking",
+        "monolog"
+    ],
+    "require": {
+        "php": "^8.3",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "monolog/monolog": "^3.0",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpunit/phpunit": "^12.0"
+    },
+    "suggest": {
+        "monolog/monolog": "Needed for the XInfraHandler Monolog handler (^3.0)"
+    },
+    "conflict": {
+        "monolog/monolog": "<3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "XInfra\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "XInfra\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "stan": "phpstan analyse",
+        "cs": "php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix",
+        "check": [
+            "@cs",
+            "@stan",
+            "@test"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "8.3.0"
+        }
+    },
+    "minimum-stability": "stable"
+}
