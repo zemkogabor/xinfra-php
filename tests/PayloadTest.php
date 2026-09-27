@@ -24,6 +24,7 @@ final class PayloadTest extends TestCase
             'exception' => new LogicException('Inner', 5),
             'nested' => ['a' => ['b' => 1]],
             'nan' => NAN,
+            'inf' => -INF,
         ]);
 
         $context = Payload::fromEvent($event, TestConfig::enabled())['context'];
@@ -36,6 +37,7 @@ final class PayloadTest extends TestCase
         self::assertSame(LogicException::class, $context['exception']['class']);
         self::assertSame(['a' => ['b' => 1]], $context['nested']);
         self::assertSame('NAN', $context['nan']);
+        self::assertSame('-INF', $context['inf']);
     }
 
     public function testDeepAndLargeContextIsCut(): void

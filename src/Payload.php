@@ -87,7 +87,7 @@ final class Payload
     private static function normalizeValue(mixed $value, int $depth): mixed
     {
         if ($value === null || is_scalar($value)) {
-            return is_float($value) && !is_finite($value) ? (string) $value : $value;
+            return is_float($value) && !is_finite($value) ? self::nonFiniteToString($value) : $value;
         }
 
         if ($depth > self::MAX_DEPTH) {
@@ -132,6 +132,18 @@ final class Payload
         }
 
         return get_debug_type($value);
+    }
+
+    /**
+     * JSON has no NAN or INF. Casting them to string warns since PHP 8.5.
+     */
+    private static function nonFiniteToString(float $value): string
+    {
+        if (is_nan($value)) {
+            return 'NAN';
+        }
+
+        return $value > 0 ? 'INF' : '-INF';
     }
 
     /**
